@@ -9,4 +9,4 @@ class PostForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ('title','text','created_date','published_date','price')
+        fields = ('title','text', 'price')

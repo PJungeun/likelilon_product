@@ -77,9 +77,47 @@ class Delete_post(DeleteView):
 def detail_post(request,post_pk):
     post = get_object_or_404(Post, id = post_pk)
     return render(request,'detail_post.html',{'post':post})
-        
-class Detail_post(DetailView):
-    model = Product
-    template_name = 'detail_post.html'
-    context_object_name = 'product'
 
+
+class Product_home(ListView):
+    model=Product
+    template_name='product_home.html'
+    context_object_name='products'
+
+class Detail_post(DetailView):
+    model = Post
+    template_name = 'detail_post.html'
+
+class Product_create(CreateView):
+    model=Product
+    template_name='Product_create.html'
+    #form_class=PostForm
+    fields=['title','text','price']
+    success_url=reverse_lazy('product_home')
+
+class Product_edit(UpdateView):
+    model=Product
+    template_name='Product_create.html'
+    success_url=reverse_lazy('product_home')
+    form_class=ProductForm
+
+class Product_delete(DeleteView):
+    model=Product
+    success_url=reverse_lazy('product_home')
+    template_name='product_delete.html'
+
+    def product(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            url=self.get_success_url()
+            return HttpResponseRedirect(url)
+
+        else:
+            return super(Product_delete,self).product(request,*args,**kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy('product_home')
+
+
+class Product_detail(DetailView):
+    model=Product
+    template_name='product_detail.html'
