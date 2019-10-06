@@ -1,6 +1,10 @@
-{{post.title}}
+{{product.title}}
 <br>
-{{post.text}}
+{{product.text}}
+{{product.created_date}}
+{{product.published_date}}
+{{product.price}}
 
 <a href="{% url 'edit_post' post.id %}">수정하기</a>
 <a href="{% url 'delete_post' post.id %}">삭제하기</a>
+
